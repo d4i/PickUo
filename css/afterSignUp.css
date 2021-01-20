@@ -1,0 +1,33 @@
+#blank_profile{
+	width:100px;
+	/* height:70px; */
+	cursor:pointer;
+	margin-left:960px;
+	/* margin-top:70px; */
+	border-radius: 50%;
+	background: #cc3333;
+	font-size: 28px;
+	color: #fff;
+	text-align: center;
+	padding:12px 12px;
+	line-height: 60px;
+	/* margin: 20px 0; */
+}
+
+#blank_profile_span{
+	margin-top:20px;
+	margin-left:30px;
+	/* width:100px; */
+}
+
+#blank_profile_btn{
+	border:none;
+}
+
+#pf{
+	width:50px;
+}
+
+#profile{
+	margin-top:20px;
+}

@@ -1,0 +1,487 @@
+create database pick_up;
+
+use pick_up;
+
+create table contacts(
+contact_id int auto_increment primary key,
+contact1 varchar(12) not null unique,
+contact2 varchar(12),
+contact3 varchar(12)
+);
+
+create table countries(
+country_id int auto_increment primary key,
+country_code varchar(3) not null,
+country varchar(20) not null unique
+);
+
+create table states(
+state_id int auto_increment primary key,
+state varchar(50) not null,
+country_id int not null,
+constraint fk_state_country foreign key (country_id) references countries(country_id)
+);
+
+create table cities(
+city_id int auto_increment primary key,
+city varchar(50) not null,
+state_id int not null,
+constraint fk_city_state foreign key (state_id) references states(state_id)
+);
+
+create table addresses(
+address_id int auto_increment primary key,
+plot_no int(5) not null unique,
+street1 varchar(100) not null,
+street2 varchar(100) not null,
+street3 varchar(100),
+area varchar(100) not null,
+city_id int not null,
+constraint fk_adr_cities foreign key (city_id) references cities (city_id),
+pincode int(10) not null
+);
+
+create table designations(
+designation_id int auto_increment primary key,
+designation varchar(100) not null unique
+);
+
+create table railway_stations(
+station_id int auto_increment primary key,
+station_name varchar(100) not null unique,
+address_id int not null unique,
+constraint fk_rs_addr foreign key (address_id) references addresses(address_id)
+);
+
+create table employees(
+employee_id int auto_increment primary key,
+employee_name varchar(100) not null,
+father_name varchar(50) not null,
+dob date not null,
+gender varchar(10) not null,
+contact_id int not null,
+constraint fk_emp_contacts foreign key (contact_id) references contacts (contact_id),
+address_id int not null unique,
+constraint fk_emp_addr foreign key (address_id) references addresses (address_id),
+work_experience int(3) not null,
+email varchar(60) not null unique,
+password varchar(100) not null,
+designation_id int not null,
+constraint fk_emp_dsgn foreign key (designation_id) references designations (designation_id),
+hotel_id int not null,
+constraint fk_emp_hotels foreign key (hotel_id) references hotels (hotel_id),
+station_id int not null,
+constraint fk_emp_stations foreign key (station_id) references railway_stations (station_id)
+);
+
+create table hotels(
+hotel_id int auto_increment primary key,
+hotel_name varchar(100) not null,
+address_id int not null unique,
+constraint fk_hotels_addr foreign key (address_id) references addresses(address_id),
+contact_id int not null,
+foundation_date date,
+constraint fk_hotels_contacts foreign key (contact_id) references contacts(contact_id)
+);
+
+create table users(
+user_id int auto_increment primary key,
+user_name varchar(100) not null,
+dob date,
+gender varchar(20),
+contact_id int not null,
+constraint fk_users_contacts foreign key (contact_id) references contacts(contact_id),
+address_id int,
+constraint fk_users_addr foreign key (address_id) references addresses(address_id),
+email varchar(50) not null unique,
+password varchar(50) not null
+);
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+insert into designations (designation) values 
+('Resort Manager'),('Hotel Manager'),('Hotel Sales Manager'),
+('HouseKeeping Manager'),('Hotel Maintenance Engineer'),('Concierge'),
+('Front Desk Receptionist'),('Night Auditor'),('Room Attendant'),('Hotel Housekeeper');
+
+
+
+====================================
+
+INSERT INTO countries VALUES (null, 'AF', 'Afghanistan');
+INSERT INTO countries VALUES (null, 'AL', 'Albania');
+INSERT INTO countries VALUES (null, 'DZ', 'Algeria');
+INSERT INTO countries VALUES (null, 'DS', 'American Samoa');
+INSERT INTO countries VALUES (null, 'AD', 'Andorra');
+INSERT INTO countries VALUES (null, 'AO', 'Angola');
+INSERT INTO countries VALUES (null, 'AI', 'Anguilla');
+INSERT INTO countries VALUES (null, 'AQ', 'Antarctica');
+INSERT INTO countries VALUES (null, 'AG', 'Antigua and Barbuda');
+INSERT INTO countries VALUES (null, 'AR', 'Argentina');
+INSERT INTO countries VALUES (null, 'AM', 'Armenia');
+INSERT INTO countries VALUES (null, 'AW', 'Aruba');
+INSERT INTO countries VALUES (null, 'AU', 'Australia');
+INSERT INTO countries VALUES (null, 'AT', 'Austria');
+INSERT INTO countries VALUES (null, 'AZ', 'Azerbaijan');
+INSERT INTO countries VALUES (null, 'BS', 'Bahamas');
+INSERT INTO countries VALUES (null, 'BH', 'Bahrain');
+INSERT INTO countries VALUES (null, 'BD', 'Bangladesh');
+INSERT INTO countries VALUES (null, 'BB', 'Barbados');
+INSERT INTO countries VALUES (null, 'BY', 'Belarus');
+INSERT INTO countries VALUES (null, 'BE', 'Belgium');
+INSERT INTO countries VALUES (null, 'BZ', 'Belize');
+INSERT INTO countries VALUES (null, 'BJ', 'Benin');
+INSERT INTO countries VALUES (null, 'BM', 'Bermuda');
+INSERT INTO countries VALUES (null, 'BT', 'Bhutan');
+INSERT INTO countries VALUES (null, 'BO', 'Bolivia');
+INSERT INTO countries VALUES (null, 'BA', 'Bosnia and Herzegovina');
+INSERT INTO countries VALUES (null, 'BW', 'Botswana');
+INSERT INTO countries VALUES (null, 'BV', 'Bouvet Island');
+INSERT INTO countries VALUES (null, 'BR', 'Brazil');
+INSERT INTO countries VALUES (null, 'IO', 'British Indian Ocean Territory');
+INSERT INTO countries VALUES (null, 'BN', 'Brunei Darussalam');
+INSERT INTO countries VALUES (null, 'BG', 'Bulgaria');
+INSERT INTO countries VALUES (null, 'BF', 'Burkina Faso');
+INSERT INTO countries VALUES (null, 'BI', 'Burundi');
+INSERT INTO countries VALUES (null, 'KH', 'Cambodia');
+INSERT INTO countries VALUES (null, 'CM', 'Cameroon');
+INSERT INTO countries VALUES (null, 'CA', 'Canada');
+INSERT INTO countries VALUES (null, 'CV', 'Cape Verde');
+INSERT INTO countries VALUES (null, 'KY', 'Cayman Islands');
+INSERT INTO countries VALUES (null, 'CF', 'Central African Republic');
+INSERT INTO countries VALUES (null, 'TD', 'Chad');
+INSERT INTO countries VALUES (null, 'CL', 'Chile');
+INSERT INTO countries VALUES (null, 'CN', 'China');
+INSERT INTO countries VALUES (null, 'CX', 'Christmas Island');
+INSERT INTO countries VALUES (null, 'CC', 'Cocos (Keeling) Islands');
+INSERT INTO countries VALUES (null, 'CO', 'Colombia');
+INSERT INTO countries VALUES (null, 'KM', 'Comoros');
+INSERT INTO countries VALUES (null, 'CG', 'Congo');
+INSERT INTO countries VALUES (null, 'CK', 'Cook Islands');
+INSERT INTO countries VALUES (null, 'CR', 'Costa Rica');
+INSERT INTO countries VALUES (null, 'HR', 'Croatia (Hrvatska)');
+INSERT INTO countries VALUES (null, 'CU', 'Cuba');
+INSERT INTO countries VALUES (null, 'CY', 'Cyprus');
+INSERT INTO countries VALUES (null, 'CZ', 'Czech Republic');
+INSERT INTO countries VALUES (null, 'DK', 'Denmark');
+INSERT INTO countries VALUES (null, 'DJ', 'Djibouti');
+INSERT INTO countries VALUES (null, 'DM', 'Dominica');
+INSERT INTO countries VALUES (null, 'DO', 'Dominican Republic');
+INSERT INTO countries VALUES (null, 'TP', 'East Timor');
+INSERT INTO countries VALUES (null, 'EC', 'Ecuador');
+INSERT INTO countries VALUES (null, 'EG', 'Egypt');
+INSERT INTO countries VALUES (null, 'SV', 'El Salvador');
+INSERT INTO countries VALUES (null, 'GQ', 'Equatorial Guinea');
+INSERT INTO countries VALUES (null, 'ER', 'Eritrea');
+INSERT INTO countries VALUES (null, 'EE', 'Estonia');
+INSERT INTO countries VALUES (null, 'ET', 'Ethiopia');
+INSERT INTO countries VALUES (null, 'FK', 'Falkland Islands (Malvinas)');
+INSERT INTO countries VALUES (null, 'FO', 'Faroe Islands');
+INSERT INTO countries VALUES (null, 'FJ', 'Fiji');
+INSERT INTO countries VALUES (null, 'FI', 'Finland');
+INSERT INTO countries VALUES (null, 'FR', 'France');
+INSERT INTO countries VALUES (null, 'FX', 'France, Metropolitan');
+INSERT INTO countries VALUES (null, 'GF', 'French Guiana');
+INSERT INTO countries VALUES (null, 'PF', 'French Polynesia');
+INSERT INTO countries VALUES (null, 'TF', 'French Southern Territories');
+INSERT INTO countries VALUES (null, 'GA', 'Gabon');
+INSERT INTO countries VALUES (null, 'GM', 'Gambia');
+INSERT INTO countries VALUES (null, 'GE', 'Georgia');
+INSERT INTO countries VALUES (null, 'DE', 'Germany');
+INSERT INTO countries VALUES (null, 'GH', 'Ghana');
+INSERT INTO countries VALUES (null, 'GI', 'Gibraltar');
+INSERT INTO countries VALUES (null, 'GK', 'Guernsey');
+INSERT INTO countries VALUES (null, 'GR', 'Greece');
+INSERT INTO countries VALUES (null, 'GL', 'Greenland');
+INSERT INTO countries VALUES (null, 'GD', 'Grenada');
+INSERT INTO countries VALUES (null, 'GP', 'Guadeloupe');
+INSERT INTO countries VALUES (null, 'GU', 'Guam');
+INSERT INTO countries VALUES (null, 'GT', 'Guatemala');
+INSERT INTO countries VALUES (null, 'GN', 'Guinea');
+INSERT INTO countries VALUES (null, 'GW', 'Guinea-Bissau');
+INSERT INTO countries VALUES (null, 'GY', 'Guyana');
+INSERT INTO  countries VALUES (null, 'HT', 'Haiti');
+INSERT INTO  countries VALUES (null, 'HM', 'Heard and Mc Donald Islands');
+INSERT INTO  countries VALUES (null, 'HN', 'Honduras');
+INSERT INTO  countries VALUES (null, 'HK', 'Hong Kong');
+INSERT INTO  countries VALUES (null, 'HU', 'Hungary');
+INSERT INTO  countries VALUES (null, 'IS', 'Iceland');
+INSERT INTO  countries VALUES (null, 'IN', 'India');
+INSERT INTO  countries VALUES (null, 'IM', 'Isle of Man');
+INSERT INTO  countries VALUES (null, 'ID', 'Indonesia');
+INSERT INTO  countries VALUES (null, 'IR', 'Iran (Islamic Republic of)');
+INSERT INTO  countries VALUES (null, 'IQ', 'Iraq');
+INSERT INTO  countries VALUES (null, 'IE', 'Ireland');
+INSERT INTO  countries VALUES (null, 'IL', 'Israel');
+INSERT INTO  countries VALUES (null, 'IT', 'Italy');
+INSERT INTO  countries VALUES (null, 'CI', 'Ivory Coast');
+INSERT INTO  countries VALUES (null, 'JE', 'Jersey');
+INSERT INTO  countries VALUES (null, 'JM', 'Jamaica');
+INSERT INTO  countries VALUES (null, 'JP', 'Japan');
+INSERT INTO  countries VALUES (null, 'JO', 'Jordan');
+INSERT INTO  countries VALUES (null, 'KZ', 'Kazakhstan');
+INSERT INTO  countries VALUES (null, 'KE', 'Kenya');
+INSERT INTO  countries VALUES (null, 'KI', 'Kiribati');
+INSERT INTO  countries VALUES (null, 'KP', 'Korea, Democratic People''s Republic of');
+INSERT INTO  countries VALUES (null, 'KR', 'Korea, Republic of');
+INSERT INTO  countries VALUES (null, 'XK', 'Kosovo');
+INSERT INTO  countries VALUES (null, 'KW', 'Kuwait');
+INSERT INTO  countries VALUES (null, 'KG', 'Kyrgyzstan');
+INSERT INTO  countries VALUES (null, 'LA', 'Lao People''s Democratic Republic');
+INSERT INTO  countries VALUES (null, 'LV', 'Latvia');
+INSERT INTO  countries VALUES (null, 'LB', 'Lebanon');
+INSERT INTO  countries VALUES (null, 'LS', 'Lesotho');
+INSERT INTO  countries VALUES (null, 'LR', 'Liberia');
+INSERT INTO  countries VALUES (null, 'LY', 'Libyan Arab Jamahiriya');
+INSERT INTO  countries VALUES (null, 'LI', 'Liechtenstein');
+INSERT INTO  countries VALUES (null, 'LT', 'Lithuania');
+INSERT INTO  countries VALUES (null, 'LU', 'Luxembourg');
+INSERT INTO  countries VALUES (null, 'MO', 'Macau');
+INSERT INTO  countries VALUES (null, 'MK', 'Macedonia');
+INSERT INTO  countries VALUES (null, 'MG', 'Madagascar');
+INSERT INTO  countries VALUES (null, 'MW', 'Malawi');
+INSERT INTO  countries VALUES (null, 'MY', 'Malaysia');
+INSERT INTO  countries VALUES (null, 'MV', 'Maldives');
+INSERT INTO  countries VALUES (null, 'ML', 'Mali');
+INSERT INTO  countries VALUES (null, 'MT', 'Malta');
+INSERT INTO  countries VALUES (null, 'MH', 'Marshall Islands');
+INSERT INTO  countries VALUES (null, 'MQ', 'Martinique');
+INSERT INTO  countries VALUES (null, 'MR', 'Mauritania');
+INSERT INTO  countries VALUES (null, 'MU', 'Mauritius');
+INSERT INTO  countries VALUES (null, 'TY', 'Mayotte');
+INSERT INTO  countries VALUES (null, 'MX', 'Mexico');
+INSERT INTO  countries VALUES (null, 'FM', 'Micronesia, Federated States of');
+INSERT INTO  countries VALUES (null, 'MD', 'Moldova, Republic of');
+INSERT INTO  countries VALUES (null, 'MC', 'Monaco');
+INSERT INTO  countries VALUES (null, 'MN', 'Mongolia');
+INSERT INTO  countries VALUES (null, 'ME', 'Montenegro');
+INSERT INTO  countries VALUES (null, 'MS', 'Montserrat');
+INSERT INTO  countries VALUES (null, 'MA', 'Morocco');
+INSERT INTO  countries VALUES (null, 'MZ', 'Mozambique');
+INSERT INTO  countries VALUES (null, 'MM', 'Myanmar');
+INSERT INTO  countries VALUES (null, 'NA', 'Namibia');
+INSERT INTO  countries VALUES (null, 'NR', 'Nauru');
+INSERT INTO  countries VALUES (null, 'NP', 'Nepal');
+INSERT INTO  countries VALUES (null, 'NL', 'Netherlands');
+INSERT INTO  countries VALUES (null, 'AN', 'Netherlands Antilles');
+INSERT INTO  countries VALUES (null, 'NC', 'New Caledonia');
+INSERT INTO  countries VALUES (null, 'NZ', 'New Zealand');
+INSERT INTO  countries VALUES (null, 'NI', 'Nicaragua');
+INSERT INTO  countries VALUES (null, 'NE', 'Niger');
+INSERT INTO  countries VALUES (null, 'NG', 'Nigeria');
+INSERT INTO  countries VALUES (null, 'NU', 'Niue');
+INSERT INTO  countries VALUES (null, 'NF', 'Norfolk Island');
+INSERT INTO  countries VALUES (null, 'MP', 'Northern Mariana Islands');
+INSERT INTO  countries VALUES (null, 'NO', 'Norway');
+INSERT INTO  countries VALUES (null, 'OM', 'Oman');
+INSERT INTO  countries VALUES (null, 'PK', 'Pakistan');
+INSERT INTO  countries VALUES (null, 'PW', 'Palau');
+INSERT INTO  countries VALUES (null, 'PS', 'Palestine');
+INSERT INTO  countries VALUES (null, 'PA', 'Panama');
+INSERT INTO  countries VALUES (null, 'PG', 'Papua New Guinea');
+INSERT INTO  countries VALUES (null, 'PY', 'Paraguay');
+INSERT INTO  countries VALUES (null, 'PE', 'Peru');
+INSERT INTO  countries VALUES (null, 'PH', 'Philippines');
+INSERT INTO  countries VALUES (null, 'PN', 'Pitcairn');
+INSERT INTO  countries VALUES (null, 'PL', 'Poland');
+INSERT INTO  countries VALUES (null, 'PT', 'Portugal');
+INSERT INTO  countries VALUES (null, 'PR', 'Puerto Rico');
+INSERT INTO  countries VALUES (null, 'QA', 'Qatar');
+INSERT INTO  countries VALUES (null, 'RE', 'Reunion');
+INSERT INTO  countries VALUES (null, 'RO', 'Romania');
+INSERT INTO  countries VALUES (null, 'RU', 'Russian Federation');
+INSERT INTO  countries VALUES (null, 'RW', 'Rwanda');
+INSERT INTO  countries VALUES (null, 'KN', 'Saint Kitts and Nevis');
+INSERT INTO  countries VALUES (null, 'LC', 'Saint Lucia');
+INSERT INTO  countries VALUES (null, 'VC', 'Saint Vincent and the Grenadines');
+INSERT INTO  countries VALUES (null, 'WS', 'Samoa');
+INSERT INTO  countries VALUES (null, 'SM', 'San Marino');
+INSERT INTO  countries VALUES (null, 'ST', 'Sao Tome and Principe');
+INSERT INTO  countries VALUES (null, 'SA', 'Saudi Arabia');
+INSERT INTO  countries VALUES (null, 'SN', 'Senegal');
+INSERT INTO  countries VALUES (null, 'RS', 'Serbia');
+INSERT INTO  countries VALUES (null, 'SC', 'Seychelles');
+INSERT INTO  countries VALUES (null, 'SL', 'Sierra Leone');
+INSERT INTO  countries VALUES (null, 'SG', 'Singapore');
+INSERT INTO  countries VALUES (null, 'SK', 'Slovakia');
+INSERT INTO  countries VALUES (null, 'SI', 'Slovenia');
+INSERT INTO  countries VALUES (null, 'SB', 'Solomon Islands');
+INSERT INTO  countries VALUES (null, 'SO', 'Somalia');
+INSERT INTO  countries VALUES (null, 'ZA', 'South Africa');
+INSERT INTO  countries VALUES (null, 'GS', 'South Georgia South Sandwich Islands');
+INSERT INTO  countries VALUES (null, 'SS', 'South Sudan');
+INSERT INTO  countries VALUES (null, 'ES', 'Spain');
+INSERT INTO  countries VALUES (null, 'LK', 'Sri Lanka');
+INSERT INTO  countries VALUES (null, 'SH', 'St. Helena');
+INSERT INTO  countries VALUES (null, 'PM', 'St. Pierre and Miquelon');
+INSERT INTO  countries VALUES (null, 'SD', 'Sudan');
+INSERT INTO  countries VALUES (null, 'SR', 'Suriname');
+INSERT INTO  countries VALUES (null, 'SJ', 'Svalbard and Jan Mayen Islands');
+INSERT INTO  countries VALUES (null, 'SZ', 'Swaziland');
+INSERT INTO  countries VALUES (null, 'SE', 'Sweden');
+INSERT INTO  countries VALUES (null, 'CH', 'Switzerland');
+INSERT INTO  countries VALUES (null, 'SY', 'Syrian Arab Republic');
+INSERT INTO  countries VALUES (null, 'TW', 'Taiwan');
+INSERT INTO  countries VALUES (null, 'TJ', 'Tajikistan');
+INSERT INTO  countries VALUES (null, 'TZ', 'Tanzania, United Republic of');
+INSERT INTO  countries VALUES (null, 'TH', 'Thailand');
+INSERT INTO  countries VALUES (null, 'TG', 'Togo');
+INSERT INTO  countries VALUES (null, 'TK', 'Tokelau');
+INSERT INTO  countries VALUES (null, 'TO', 'Tonga');
+INSERT INTO  countries VALUES (null, 'TT', 'Trinidad and Tobago');
+INSERT INTO  countries VALUES (null, 'TN', 'Tunisia');
+INSERT INTO  countries VALUES (null, 'TR', 'Turkey');
+INSERT INTO  countries VALUES (null, 'TM', 'Turkmenistan');
+INSERT INTO  countries VALUES (null, 'TC', 'Turks and Caicos Islands');
+INSERT INTO  countries VALUES (null, 'TV', 'Tuvalu');
+INSERT INTO  countries VALUES (null, 'UG', 'Uganda');
+INSERT INTO  countries VALUES (null, 'UA', 'Ukraine');
+INSERT INTO  countries VALUES (null, 'AE', 'United Arab Emirates');
+INSERT INTO  countries VALUES (null, 'GB', 'United Kingdom');
+INSERT INTO  countries VALUES (null, 'US', 'United States');
+INSERT INTO  countries VALUES (null, 'UM', 'United States minor outlying islands');
+INSERT INTO  countries VALUES (null, 'UY', 'Uruguay');
+INSERT INTO  countries VALUES (null, 'UZ', 'Uzbekistan');
+INSERT INTO  countries VALUES (null, 'VU', 'Vanuatu');
+INSERT INTO  countries VALUES (null, 'VA', 'Vatican City State');
+INSERT INTO  countries VALUES (null, 'VE', 'Venezuela');
+INSERT INTO  countries VALUES (null, 'VN', 'Vietnam');
+INSERT INTO  countries VALUES (null, 'VG', 'Virgin Islands (British)');
+INSERT INTO  countries VALUES (null, 'VI', 'Virgin Islands (U.S.)');
+INSERT INTO  countries VALUES (null, 'WF', 'Wallis and Futuna Islands');
+INSERT INTO  countries VALUES (null, 'EH', 'Western Sahara');
+INSERT INTO  countries VALUES (null, 'YE', 'Yemen');
+INSERT INTO  countries VALUES (null, 'ZR', 'Zaire');
+INSERT INTO  countries VALUES (null, 'ZM', 'Zambia');
+INSERT INTO  countries VALUES (null, 'ZW', 'Zimbabwe');
+
+======================================
+
+
+insert into addresses (plot_no,street1,street2,street3,area,city_id,pincode) values(24,'abc road','bt colony',null,'garha',54,254634)
+
+alter table hotels add status enum('active','inactive','blocked')
+
+create table status (
+status_id int auto_increment primary key,
+status varchar(30) not null 
+);
+
+insert into status(status) values ('inactive'),('active'),('blocked');
+
+alter table hotels add column status_id int not null,
+add constraint fk_hotel_status foreign key (status_id) references status (status_id) 
+
+alter table hotels change column status_id status_id int not null default '1';
+
+alter table hotels add column 
+email varchar(100) not null unique;
+
+create table rooms(
+room_id int auto_increment primary key,
+room_no int(4) not null,
+capacity int(6) not null,
+hotel_id int not null,
+constraint fk_room_hotel foreign key (hotel_id) references hotels(hotel_id)
+);
+
+alter table rooms add column room_img blob not null;
+
+ALTER TABLE hotels
+    DROP FOREIGN KEY fk_hotels_contacts;   
+ALTER TABLE hotels
+    ADD CONSTRAINT fk_hotels_contacts
+        FOREIGN KEY (contact_id) 
+        REFERENCES contacts (contact_id)
+        ON DELETE CASCADE;
+
+ALTER TABLE employees
+    DROP FOREIGN KEY fk_emp_contacts;
+ALTER TABLE employees
+    ADD CONSTRAINT fk_emp_contacts
+        FOREIGN KEY (contact_id) 
+        REFERENCES contacts (contact_id)
+        ON DELETE CASCADE;
+
+ALTER TABLE users
+    DROP FOREIGN KEY fk_users_contacts;   
+ALTER TABLE users
+    ADD CONSTRAINT fk_users_contacts
+        FOREIGN KEY (contact_id) 
+        REFERENCES contacts (contact_id)
+        ON DELETE CASCADE;
+
+delete from contacts;
+
+alter table rooms
+   drop foreign key fk_room_hotel;
+alter table rooms 
+	add constraint fk_room_hotel 
+	foreign key (hotel_id) references hotels (hotel_id)
+	on delete cascade;
+
+
+alter table college_batches
+	drop foreign key fk_clgbtch_btch_id;
+alter table college_batches
+	add constraint fk_clgbtch_btch_id
+	foreign key(batch_id) references batches (batch_id)
+	on delete cascade;
+
+delete from batches;
+
+alter table rooms add column status_id int not null default '4',
+
+
+insert into status (status) values ('available'),('booked'),('deleted');
+
+alter table rooms add 
+constraint fk_room_status 
+ foreign key (status_id) references status(status_id);
+
+select * from rooms as r inner join hotels as h
+ inner join addresses as a inner join cities as c
+ where r.hotel_id=h.hotel_id and h.address_id=a.address_id 
+ and a.city_id=c.city_id and  (c.city='Gulzar' or h.hotel_name="gulzar");
+ 
+
+
+select room_id,room_no,capacity,r.hotel_id,room_img,r.status_id,h.hotel_id,
+ hotel_name,h.address_id,contact_id,plot_no,street1,street2,street3,
+ area,a.city_id,pincode,city,s.state_id,state
+ from rooms as r inner join hotels as h
+ inner join addresses as a inner join cities as c
+ inner join states as s inner join status as st
+ where r.hotel_id=h.hotel_id and h.address_id=a.address_id 
+ and a.city_id=c.city_id and c.state_id=s.state_id and r.status_id=st.status_id
+ and a.city_id=c.city_id and  (c.city='Gulzar' or h.hotel_name="gulzar") 
+ and capacity between 0 and 50;
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+ select * from rooms inner join hotels as h inner join addresses as a inner join cities as c where c.city='Jabalpur';
+
+
+ select capacity
+ from rooms as r inner join hotels as h
+ inner join addresses as a inner join cities as c
+ inner join states as s inner join status as st
+ where r.hotel_id=h.hotel_id and h.address_id=a.address_id 
+ and a.city_id=c.city_id and c.state_id=s.state_id and r.status_id=st.status_id
+ and a.city_id=c.city_id and  (c.city='ganju' or h.hotel_name="ganju") 
+ and capacity between 0 and 50
+
+
+select room_id,room_no,capacity,r.hotel_id,hotel_name,h.address_id
+ ,plot_no,street1,street2,street3,area,a.city_id,city,
+ c.state_id,s.state,s.country_id,country,pincode,h.contact_id,contact1,contact2,contact3,
+ foundation_date,h.status_id,status,h.email,r.room_img,r.status_id,status from 
+ rooms as r inner join hotels as h inner join addresses as a 
+ inner join cities as c inner join states as s inner join countries as ctrs 
+ inner join contacts as con inner join status as st 
+ where r.hotel_id=h.hotel_id and h.address_id=a.address_id
+ and a.city_id=c.city_id and c.state_id=s.state_id and r.status_id=st.status_id 
+ and s.country_id=ctrs.country_id and h.contact_id=con.contact_id and
+ (c.city='Almora' or h.hotel_name='Almora')
+ and capacity between 0 and 20+10

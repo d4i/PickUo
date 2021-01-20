@@ -1,0 +1,29 @@
+#asset{
+	margin-left:25px;
+	font-weight:bold;
+	font-size:20px;
+	padding:8px 8px;
+	margin-top:15px;
+	font-family:san-sarif;
+	color:blue;
+}
+
+.btn-group{
+	margin-top:10px;
+}
+
+#nextForm{
+	display:none;
+}
+
+#scrollable{
+	overflow-y:auto;
+	width:300px;
+	height:500px;
+	border:1px solid #dadada;
+	padding:12px 12px;
+}
+
+#status{
+	border:1px solid red;
+}

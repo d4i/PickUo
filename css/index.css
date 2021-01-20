@@ -1,0 +1,149 @@
+
+.scrollable-menu{
+	height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+	width:180px;
+}
+
+#allCities:hover>.dropdown-menu {
+  display: block;
+  width:100px;
+}
+
+#allCities>.dropdown-toggle:active {
+ /*  Without this, clicking will make it sticky */
+    pointer-events: none;
+}
+
+#login{
+	padding-top:8px;
+}
+.navbar{
+	display:none;
+}
+
+#menubtn{
+	padding:20px 20px;
+	margin-top:15px;
+}
+
+#wrapper{
+	display:flex;
+	 width: 100%;
+    align-items: stretch;
+}
+
+#myModal{
+	margin-left:950px;
+}
+
+.modal.right.fade .modal-dialog {
+	right: -320px;
+	-webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+	-moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+	-o-transition: opacity 0.3s linear, right 0.3s ease-out;
+	transition: opacity 0.3s linear, right 0.3s ease-out;
+	}
+	
+.modal.right.fade.in .modal-dialog {
+	right: 0;
+}
+
+#travel_img{
+	height:200px;
+	width:80%;
+	padding:12px 12px;
+	opacity:0.3;	
+	-webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+	filter: grayscale(100%);
+}
+
+#view_bar{
+	/* padding-top:20px; */
+	margin-top:12px;
+	/* background-color:#d7d7ff; */
+}
+
+.centered {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	/* font-size:22px; */
+	top:50px;
+	color:#ffffff;
+	text-shadow: 2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+}
+
+#search_bar{
+	position: absolute;
+	top: 63%;
+	left: 20%;
+	transform: translate(-5 0%, -50%);
+	/* border: 1px solid red; */
+}
+
+#pickdate{
+	width:130px;
+	margin-left:1px;
+}
+
+#gminus,#gplus{
+	border:none;
+	border-radius:50%;
+}
+
+#gminus:hover,#gplus:hover{
+	background-color:white;
+	/* -webkit-transition: padding 2s; */
+	}
+
+#room_no{
+	font-size:25px;
+	/* padding-top:10px; */
+	word-wrap: break-word; 
+	white-space:normal !important;
+	word-break: normal;
+}
+
+#cancel,#done{
+	margin:2px 4px;
+}
+
+#room_btn{
+	width:240px;
+	text-align:center;
+}
+
+#bag_no{
+	font-size:30px;
+	text-align:center;
+}
+
+.roomimg {
+    /* display: block; */
+    width: 100%;
+    height: 250px; 
+
+.carousel-caption {
+    right: 50%;
+    text-align: right;
+    /* background-color: black; */
+    max-width: 300px;
+    /* left: auto; */
+    padding:5px;
+}
+
+#logo_img{
+	width:100px;
+}
+
+#h_c_name{
+	font-size:10px;
+	/* border:none; */
+}
+
+#cell{
+	font-size:20px;
+}

@@ -1,0 +1,10 @@
+#showImg{
+	display:none;
+	width:200px;
+	height:200px;
+}
+
+#availableRoom{
+	display:none;
+	border:1px solid #d7d7d7;
+}
